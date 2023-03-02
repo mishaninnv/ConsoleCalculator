@@ -18,6 +18,7 @@ public class ValidateHandler
         _methods.Add(CheckStartSymbol, "Недопустимый начальный символ");
         _methods.Add(CheckSeveralOperatorsRow, "Несколько операторов подряд");
         _methods.Add(CheckSymbols, "Присутствуют недопустимые символы");
+        _methods.Add(CheckNumbers, "Отсутствуют числа в выражении");
     }
 
     public bool CheckValidExpression(ExpressionModel model)
@@ -56,4 +57,6 @@ public class ValidateHandler
 
         return counter != 0;
     }
+
+    private bool CheckNumbers(string expr) => !Regex.Match(expr, @"\d").Success;
 }

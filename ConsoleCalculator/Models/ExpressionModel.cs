@@ -23,13 +23,17 @@ public class ExpressionModel
     {
         expression = expression.Replace(")(", ")*(");
         expression = expression.Replace(" ","");
+        while (expression.Contains("()"))
+        {
+            expression = expression.Replace("()", "");
+        }
+        
         if (Regex.Match(expression, @"^-").Success)
         {
             expression = expression.Insert(0, "0");
         }
 
         var unidentifiedAction = Regex.Matches(expression, @"\d\(|\)\d").ToArray();
-
         foreach (var action in unidentifiedAction)
         {
             expression = expression.Replace(action.ToString(), action.ToString().Insert(1, "*"));
